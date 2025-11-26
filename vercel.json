@@ -24,10 +24,15 @@
         {
             "source": "/api/(.*)",
             "destination": "/api/index.ts"
+        }
+    ],
+    "routes": [
+        {
+            "handle": "filesystem"
         },
         {
-            "source": "/(.*)",
-            "destination": "/dist/public/$1"
+            "src": "/(.*)",
+            "dest": "/index.html"
         }
     ],
     "cleanUrls": true,
