@@ -13,7 +13,7 @@ export default function Footer() {
           <div className="lg:col-span-4 space-y-6">
             <div className="flex items-center gap-3">
               <img
-                src="/attached_assets/IMG_1425_1762042786950.png"
+                src="client\public\assets\logo.png"
                 alt="ApexVerse Logo"
                 className="h-12 w-auto object-contain"
               />
