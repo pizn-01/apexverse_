@@ -6,64 +6,56 @@ import { RevealGroup, RevealItem } from "@/components/layout/Reveal";
 import { X } from "lucide-react";
 import PortfolioItem from "@/components/layout/PortfolioItem";
 
-import img1 from "@assets/IMG_1257_1762042711443.jpg";
-import img2 from "@assets/IMG_1260_1762042711444.jpg";
-import img3 from "@assets/IMG_1262_1762042711444.jpg";
-import img4 from "@assets/IMG_1265_1762042711445.jpg";
-import img5 from "@assets/IMG_1266_1762042711445.jpg";
-import img6 from "@assets/IMG_1267_1762042711446.jpg";
-import img7 from "@assets/IMG_1268_1762042711446.jpg";
-import img8 from "@assets/IMG_1269_1762042711447.jpg";
-import img9 from "@assets/IMG_1270_1762042711447.jpg";
-import img10 from "@assets/IMG_1271_1762042711448.jpg";
-import img11 from "@assets/IMG_1272_1762042711448.jpg";
-import img12 from "@assets/IMG_1273_1762042711448.jpg";
-import img13 from "@assets/IMG_1274_1762042711449.jpg";
-import img14 from "@assets/IMG_1275_1762042711449.jpg";
-
 // Pair line art with corresponding full art
 const portfolioItems = [
-  { 
+  {
     id: 1,
-    lineArt: img4, // Line Art 1
-    fullArt: img1, // Character Scene 1
+    lineArt: "/assets/portfolio/IMG_1Line_art.jpg",
+    fullArt: "/assets/portfolio/IMG_1.jpg",
     category: "Character Art",
     title: "Character Scene 1"
   },
   {
     id: 2,
-    lineArt: img5, // Line Art 2
-    fullArt: img2, // Character Scene 2
+    lineArt: "/assets/portfolio/IMG_2Line_art.jpg",
+    fullArt: "/assets/portfolio/IMG_2.jpg",
     category: "Character Art",
     title: "Character Scene 2"
   },
   {
     id: 3,
-    lineArt: img11, // Line Art 3
-    fullArt: img3, // Character Scene 3
+    lineArt: "/assets/portfolio/IMG_3Line_art.jpg",
+    fullArt: "/assets/portfolio/IMG_3.jpg",
     category: "Character Art",
     title: "Character Scene 3"
   },
   {
     id: 4,
-    lineArt: img12, // Line Art 4
-    fullArt: img6, // Character Scene 4
+    lineArt: "/assets/portfolio/IMG_4Line_art.jpg",
+    fullArt: "/assets/portfolio/IMG_4.jpg",
     category: "Character Art",
     title: "Character Scene 4"
   },
   {
     id: 5,
-    lineArt: img13, // Line Art 5
-    fullArt: img7, // Character Scene 5
+    lineArt: "/assets/portfolio/IMG_5Line_art.jpg",
+    fullArt: "/assets/portfolio/IMG_5.jpg",
     category: "Character Art",
     title: "Character Scene 5"
   },
   {
     id: 6,
-    lineArt: img14, // Line Art 6
-    fullArt: img8, // Character Scene 6
+    lineArt: "/assets/portfolio/IMG_6Line_art.jpg",
+    fullArt: "/assets/portfolio/IMG_6.jpg",
     category: "Character Art",
     title: "Character Scene 6"
+  },
+  {
+    id: 7,
+    lineArt: "/assets/portfolio/IMG_7Line_art.jpg",
+    fullArt: "/assets/portfolio/IMG_7.jpg",
+    category: "Character Art",
+    title: "Character Scene 7"
   }
 ];
 
@@ -73,8 +65,8 @@ export default function PortfolioPage() {
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [lightboxImage, setLightboxImage] = useState<string | null>(null);
 
-  const filteredItems = selectedCategory === "All" 
-    ? portfolioItems 
+  const filteredItems = selectedCategory === "All"
+    ? portfolioItems
     : portfolioItems.filter(item => item.category === selectedCategory);
 
   return (
