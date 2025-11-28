@@ -15,7 +15,7 @@ export default function Footer() {
               <img
                 src="/assets/logo.png"
                 alt="ApexVerse Logo"
-                className="h-16 w-auto object-contain"
+                className="h-20 w-auto object-contain"
               />
               <span className="font-serif font-bold text-2xl"></span>
             </div>
