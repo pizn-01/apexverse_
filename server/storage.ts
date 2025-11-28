@@ -1,5 +1,13 @@
-import { type ContactSubmission, type InsertContactSubmission, type Testimonial, type InsertTestimonial } from "@shared/schema";
+import { config } from 'dotenv';
+
+// Load environment variables from .env file
+config();
+
+import { type ContactSubmission, type InsertContactSubmission, type Testimonial, type InsertTestimonial, contactSubmissions, testimonials } from "@shared/schema";
 import { randomUUID } from "crypto";
+import { drizzle } from 'drizzle-orm/neon-http';
+import { neon } from '@neondatabase/serverless';
+import { desc, eq } from 'drizzle-orm';
 
 export interface IStorage {
   createContactSubmission(submission: InsertContactSubmission): Promise<ContactSubmission>;
@@ -13,6 +21,83 @@ export interface IStorage {
   deleteTestimonial(id: string): Promise<boolean>;
 }
 
+// PostgreSQL Storage Implementation
+export class PostgresStorage implements IStorage {
+  private db;
+
+  constructor(connectionString: string) {
+    const sql = neon(connectionString);
+    this.db = drizzle(sql);
+  }
+
+  async createContactSubmission(insertSubmission: InsertContactSubmission): Promise<ContactSubmission> {
+    const [submission] = await this.db
+      .insert(contactSubmissions)
+      .values({
+        name: insertSubmission.name,
+        email: insertSubmission.email,
+        subject: insertSubmission.subject ?? null,
+        message: insertSubmission.message,
+      })
+      .returning();
+    return submission;
+  }
+
+  async getContactSubmissions(): Promise<ContactSubmission[]> {
+    return await this.db
+      .select()
+      .from(contactSubmissions)
+      .orderBy(desc(contactSubmissions.createdAt));
+  }
+
+  async getContactSubmission(id: string): Promise<ContactSubmission | undefined> {
+    const [submission] = await this.db
+      .select()
+      .from(contactSubmissions)
+      .where(eq(contactSubmissions.id, id));
+    return submission;
+  }
+
+  async createTestimonial(insertTestimonial: InsertTestimonial): Promise<Testimonial> {
+    const [testimonial] = await this.db
+      .insert(testimonials)
+      .values({
+        platform: insertTestimonial.platform,
+        postUrl: insertTestimonial.postUrl,
+        authorName: insertTestimonial.authorName,
+        authorHandle: insertTestimonial.authorHandle ?? null,
+        content: insertTestimonial.content,
+        imageUrl: insertTestimonial.imageUrl ?? null,
+      })
+      .returning();
+    return testimonial;
+  }
+
+  async getTestimonials(): Promise<Testimonial[]> {
+    return await this.db
+      .select()
+      .from(testimonials)
+      .orderBy(desc(testimonials.createdAt));
+  }
+
+  async getTestimonial(id: string): Promise<Testimonial | undefined> {
+    const [testimonial] = await this.db
+      .select()
+      .from(testimonials)
+      .where(eq(testimonials.id, id));
+    return testimonial;
+  }
+
+  async deleteTestimonial(id: string): Promise<boolean> {
+    const result = await this.db
+      .delete(testimonials)
+      .where(eq(testimonials.id, id))
+      .returning();
+    return result.length > 0;
+  }
+}
+
+// In-Memory Storage Implementation (for development without database)
 export class MemStorage implements IStorage {
   private contactSubmissions: Map<string, ContactSubmission>;
   private testimonials: Map<string, Testimonial>;
@@ -20,6 +105,7 @@ export class MemStorage implements IStorage {
   constructor() {
     this.contactSubmissions = new Map();
     this.testimonials = new Map();
+    console.log("⚠️  Using in-memory storage. Data will be lost on restart. Set DATABASE_URL to use persistent storage.");
   }
 
   async createContactSubmission(insertSubmission: InsertContactSubmission): Promise<ContactSubmission> {
@@ -28,7 +114,6 @@ export class MemStorage implements IStorage {
       id,
       name: insertSubmission.name,
       email: insertSubmission.email,
-      // ensure subject is never undefined - storage expects string | null
       subject: insertSubmission.subject ?? null,
       message: insertSubmission.message,
       createdAt: new Date(),
@@ -47,7 +132,6 @@ export class MemStorage implements IStorage {
     return this.contactSubmissions.get(id);
   }
 
-  // Testimonials methods
   async createTestimonial(insertTestimonial: InsertTestimonial): Promise<Testimonial> {
     const id = randomUUID();
     const testimonial: Testimonial = {
@@ -79,4 +163,16 @@ export class MemStorage implements IStorage {
   }
 }
 
-export const storage = new MemStorage();
+// Auto-select storage based on environment
+// If DATABASE_URL is set, use PostgreSQL; otherwise use in-memory storage
+export const storage: IStorage = process.env.DATABASE_URL
+  ? new PostgresStorage(process.env.DATABASE_URL)
+  : new MemStorage();
+
+// Log which storage is being used
+if (process.env.DATABASE_URL) {
+  console.log("✅ Using PostgreSQL storage");
+} else {
+  console.log("⚠️  DATABASE_URL not set - using in-memory storage (data will not persist)");
+}
+
