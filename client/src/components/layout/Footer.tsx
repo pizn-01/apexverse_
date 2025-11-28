@@ -13,11 +13,11 @@ export default function Footer() {
           <div className="lg:col-span-4 space-y-6">
             <div className="flex items-center gap-3">
               <img
-                src="/assets/logo.png"
+                src="./attached_assets/IMG_1425_1762042786950.png"
                 alt="ApexVerse Logo"
                 className="h-12 w-auto object-contain"
               />
-              <span className="font-serif font-bold text-2xl">ApexVerse</span>
+              <span className="font-serif font-bold text-2xl"></span>
             </div>
             <p className="text-muted-foreground leading-relaxed text-sm max-w-sm">
               Just two creatives looking to make your dreams come true. We bring your stories to life with passion and precision.
