@@ -32,6 +32,7 @@ function Router() {
       <Route path="/portfolio" component={PortfolioPage} />
       <Route path="/policies" component={PoliciesPage} />
       <Route path="/contact" component={ContactPage} />
+      <Route path="/testimonials-admin" component={TestimonialsAdminPage} />
       <Route path="/admin/testimonials" component={TestimonialsAdminPage} />
       <Route component={NotFound} />
     </Switch>
