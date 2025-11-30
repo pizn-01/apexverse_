@@ -37,12 +37,7 @@ export default function TestimonialsAdmin() {
             const extracted = await extractXContent(postUrl);
             setAuthorName(extracted.authorName);
             setAuthorHandle(extracted.authorHandle || "");
-
-            // Parse content from HTML (basic extraction)
-            const parser = new DOMParser();
-            const doc = parser.parseFromString(extracted.html, 'text/html');
-            const textContent = doc.querySelector('p')?.textContent || "";
-            setContent(textContent);
+            setContent(extracted.content || "");
 
             toast({
                 title: "Content Extracted",

@@ -1,25 +1,12 @@
-# Deployment Guide for ApexVerse
-
-## Prerequisites
-
-Before deploying, you need:
-1. A PostgreSQL database (recommended: [Neon](https://neon.tech) - free tier available)
-2. Your database connection string
-
-## Database Setup
-
-### Step 1: Get a PostgreSQL Database
-
-**Option A: Neon (Recommended - Free)**
-1. Go to [https://neon.tech](https://neon.tech)
-2. Sign up for a free account
-3. Create a new project
-4. Copy the connection string (it looks like: `postgresql://user:pass@ep-xxx.aws.neon.tech/neondb?sslmode=require`)
-
-**Option B: Other Providers**
-- [Supabase](https://supabase.com) - Free tier
-- [Railway](https://railway.app) - Free tier
-- [Render](https://render.com) - Free tier
+1. Go to [https://supabase.com](https://supabase.com)
+2. Sign up or log in.
+3. Create a new project.
+4. Go to **Project Settings** -> **Database**.
+5. Under **Connection string**, select **Node.js**.
+6. Copy the connection string. It should look like:
+   `postgresql://postgres.[ref]:[password]@aws-0-[region].pooler.supabase.com:6543/postgres`
+   
+   > **Note:** We recommend using the Transaction Pooler (port 6543) for serverless environments, but port 5432 works for long-running servers too.
 
 ### Step 2: Configure Environment Variables
 
@@ -27,10 +14,11 @@ Before deploying, you need:
    ```bash
    cp .env.example .env
    ```
+   *(Or manually create a `.env` file)*
 
-2. Edit `.env` and add your database URL:
+2. Edit `.env` and add your Supabase connection string:
    ```env
-   DATABASE_URL=postgresql://your-connection-string-here
+   DATABASE_URL=postgresql://postgres.xxxx:password@....supabase.com:6543/postgres
    ```
 
 ### Step 3: Run Database Migration

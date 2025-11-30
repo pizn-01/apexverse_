@@ -1,5 +1,6 @@
-import { drizzle } from 'drizzle-orm/neon-http';
-import { neon } from '@neondatabase/serverless';
+import { drizzle } from 'drizzle-orm/node-postgres';
+import pg from 'pg';
+const { Pool } = pg;
 import { sql } from 'drizzle-orm';
 import { config } from 'dotenv';
 
@@ -16,8 +17,8 @@ if (!connectionString) {
 
 console.log('🔄 Connecting to database...');
 
-const client = neon(connectionString);
-const db = drizzle(client);
+const pool = new Pool({ connectionString });
+const db = drizzle(pool);
 
 try {
   console.log('📝 Creating database tables...');
@@ -53,6 +54,7 @@ try {
   console.log('');
   console.log('🎉 Database migration completed successfully!');
   console.log('You can now start your application with: npm run dev');
+  await pool.end();
 
 } catch (error) {
   console.error('❌ Migration failed:', error);

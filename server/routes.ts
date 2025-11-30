@@ -3,6 +3,7 @@ import { createServer, type Server } from "http";
 import { storage } from "./storage";
 import { insertContactSubmissionSchema, insertTestimonialSchema } from "@shared/schema";
 import { fromError } from "zod-validation-error";
+import { JSDOM } from "jsdom";
 
 async function sendEmailNotification(submission: any) {
   // Email notification logic
@@ -75,17 +76,70 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Helper function to extract content from X (Twitter) posts using oEmbed
   async function extractXContent(url: string) {
     try {
-      const oembedUrl = `https://publish.twitter.com/oembed?url=${encodeURIComponent(url)}`;
+      // Normalize URL - handle both twitter.com and x.com
+      const normalizedUrl = url.replace('twitter.com', 'x.com');
+
+      const oembedUrl = `https://publish.twitter.com/oembed?url=${encodeURIComponent(normalizedUrl)}`;
       const response = await fetch(oembedUrl);
 
       if (!response.ok) {
-        throw new Error(`oEmbed API returned ${response.status}`);
+        throw new Error(`oEmbed API returned ${response.status}. The tweet may be private or deleted.`);
       }
 
       const data = await response.json();
+
+      // Extract author information
+      const authorName = data.author_name || "Unknown";
+      let authorHandle = null;
+
+      if (data.author_url) {
+        // Extract handle from URL like https://twitter.com/username
+        const urlParts = data.author_url.split('/');
+        authorHandle = '@' + urlParts[urlParts.length - 1];
+      }
+
+      // Parse HTML to extract tweet content
+      let content = "";
+      if (data.html) {
+        // Use JSDOM to parse HTML on the server
+        const dom = new JSDOM(data.html);
+        const document = dom.window.document;
+
+        // Try to extract the tweet text from the blockquote
+        const blockquote = document.querySelector('blockquote');
+        if (blockquote) {
+          // Get all paragraph elements
+          const paragraphs = blockquote.querySelectorAll('p');
+          if (paragraphs.length > 0) {
+            // The first paragraph usually contains the tweet text
+            // Remove the link at the end (which is the tweet URL)
+            const firstP = paragraphs[0];
+            const link = firstP.querySelector('a');
+            if (link) {
+              link.remove();
+            }
+            content = firstP.textContent?.trim() || "";
+          }
+        }
+
+        // Fallback: extract all text from blockquote
+        if (!content && blockquote) {
+          content = blockquote.textContent?.trim() || "";
+          // Remove the timestamp and author info at the end
+          const lines = content.split('\n').filter(line => line.trim());
+          // Usually the last 2 lines are author and timestamp
+          if (lines.length > 2) {
+            content = lines.slice(0, -2).join(' ').trim();
+          }
+        }
+      }
+
+      console.log(`✅ Extracted X content from ${authorHandle || authorName}`);
+
       return {
-        authorName: data.author_name || "Unknown",
-        authorHandle: data.author_url ? data.author_url.split('/').pop() : null,
+        authorName,
+        authorHandle,
+        content,
         html: data.html || "",
       };
     } catch (error) {

@@ -5,8 +5,9 @@ config();
 
 import { type ContactSubmission, type InsertContactSubmission, type Testimonial, type InsertTestimonial, contactSubmissions, testimonials } from "@shared/schema";
 import { randomUUID } from "crypto";
-import { drizzle } from 'drizzle-orm/neon-http';
-import { neon } from '@neondatabase/serverless';
+import { drizzle } from 'drizzle-orm/node-postgres';
+import pg from 'pg';
+const { Pool } = pg;
 import { desc, eq } from 'drizzle-orm';
 
 export interface IStorage {
@@ -26,8 +27,8 @@ export class PostgresStorage implements IStorage {
   private db;
 
   constructor(connectionString: string) {
-    const sql = neon(connectionString);
-    this.db = drizzle(sql);
+    const pool = new Pool({ connectionString });
+    this.db = drizzle(pool);
   }
 
   async createContactSubmission(insertSubmission: InsertContactSubmission): Promise<ContactSubmission> {
