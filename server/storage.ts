@@ -1,7 +1,8 @@
-import { config } from 'dotenv';
-
-// Load environment variables from .env file
-config();
+// Only load dotenv in development (Vercel provides env vars directly)
+if (process.env.NODE_ENV !== 'production') {
+  const { config } = await import('dotenv');
+  config();
+}
 
 import { type ContactSubmission, type InsertContactSubmission, type Testimonial, type InsertTestimonial, contactSubmissions, testimonials } from "@shared/schema";
 import { randomUUID } from "crypto";
@@ -27,7 +28,13 @@ export class PostgresStorage implements IStorage {
   private db;
 
   constructor(connectionString: string) {
-    const pool = new Pool({ connectionString });
+    // Optimize pool for serverless environment
+    const pool = new Pool({
+      connectionString,
+      max: 1, // Limit connections in serverless
+      idleTimeoutMillis: 30000,
+      connectionTimeoutMillis: 10000,
+    });
     this.db = drizzle(pool);
   }
 

@@ -1,7 +1,8 @@
-import { config } from 'dotenv';
-
-// Load environment variables from .env file
-config();
+// Only load dotenv in development (Vercel provides env vars directly)
+if (process.env.NODE_ENV !== 'production') {
+  const { config } = await import('dotenv');
+  config();
+}
 
 import express, { type Request, Response, NextFunction } from "express";
 import { registerRoutes } from "./routes";

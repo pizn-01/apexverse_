@@ -37,7 +37,7 @@ Environments: ✅ Production ✅ Preview ✅ Development
 #### Variable 2: SESSION_SECRET
 ```
 Name: SESSION_SECRET
-Value: [PASTE THE KEY GENERATED BELOW]
+Value: w2S4MeIK7TsfCAYd9yDa1z8nBlWkPjN5
 Environments: ✅ Production ✅ Preview ✅ Development
 ```
 
