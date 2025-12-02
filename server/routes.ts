@@ -73,6 +73,27 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Health check endpoint to verify database connection
+  app.get("/api/health", async (req, res) => {
+    try {
+      // Simple query to check database connection
+      const result = await storage.getTestimonials();
+      return res.json({
+        status: "healthy",
+        database: "connected",
+        testimonialCount: result.length,
+        timestamp: new Date().toISOString()
+      });
+    } catch (error: any) {
+      console.error("Health check failed:", error);
+      return res.status(500).json({
+        status: "unhealthy",
+        database: "disconnected",
+        error: error.message
+      });
+    }
+  });
+
   // Helper function to extract content from X (Twitter) posts using oEmbed
   async function extractXContent(url: string) {
     try {
