@@ -52,14 +52,19 @@ let initPromise: Promise<void> | null = null;
 
 async function initializeApp() {
     if (!initialized && !initPromise) {
-        initPromise = registerRoutes(app).then(() => {
-            initialized = true;
-            console.log('✅ API routes initialized for Vercel serverless');
-        }).catch((error) => {
-            console.error('❌ Failed to initialize API routes:', error);
-            initPromise = null; // Reset to allow retry
-            throw error;
-        });
+        initPromise = (async () => {
+            try {
+                // registerRoutes returns a Server, but we only need it for the side effect
+                // of registering routes on the app. We don't use the server in serverless.
+                await registerRoutes(app);
+                initialized = true;
+                console.log('✅ API routes initialized for Vercel serverless');
+            } catch (error) {
+                console.error('❌ Failed to initialize API routes:', error);
+                initPromise = null; // Reset to allow retry
+                throw error;
+            }
+        })();
     }
     await initPromise;
 }
