@@ -75,18 +75,28 @@ export default async function handler(req: any, res: any) {
         // Initialize app on first request (cold start)
         await initializeApp();
 
-        // Handle the request using Express
-        return app(req, res);
+        // Call Express app as a request handler
+        // Express apps are functions that accept (req, res, next)
+        // In serverless, we don't have 'next', so we wrap it
+        return new Promise((resolve, reject) => {
+            res.on('finish', resolve);
+            res.on('error', reject);
+            app(req, res, (err: any) => {
+                if (err) reject(err);
+            });
+        });
     } catch (error: any) {
         console.error('[API Error]:', error);
         console.error('[API Error Stack]:', error.stack);
 
-        // Return error response
-        return res.status(500).json({
-            error: 'Internal server error',
-            message: error.message,
-            stack: process.env.NODE_ENV === 'development' ? error.stack : undefined
-        });
+        // Return error response if not already sent
+        if (!res.headersSent) {
+            return res.status(500).json({
+                error: 'Internal server error',
+                message: error.message,
+                stack: process.env.NODE_ENV === 'development' ? error.stack : undefined
+            });
+        }
     }
 }
 
