@@ -1,6 +1,6 @@
-// Only load dotenv in development (Vercel provides env vars directly)
+import { config } from 'dotenv';
 if (process.env.NODE_ENV !== 'production') {
-  require('dotenv').config();
+  config();
 }
 
 import express, { type Request, Response, NextFunction } from "express";
@@ -79,15 +79,15 @@ app.use((req, res, next) => {
   const host = process.env.HOST || (process.platform === 'win32' ? '127.0.0.1' : '0.0.0.0');
 
   // Only listen if this file is run directly (not imported)
-  if (import.meta.url === `file://${process.argv[1]}`) {
-    server.listen({
-      port,
-      host,
-      reusePort: process.platform !== 'win32',
-    }, () => {
-      log(`serving on http://${host}:${port}`);
-    });
-  }
+  // if (import.meta.url === `file://${process.argv[1]}`) {
+  server.listen({
+    port,
+    host,
+    reusePort: process.platform !== 'win32',
+  }, () => {
+    log(`serving on http://${host}:${port}`);
+  });
+  // }
 })();
 
 export default app;
