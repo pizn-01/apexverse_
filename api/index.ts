@@ -1,9 +1,115 @@
-// Vercel serverless API handler
-// Simplified approach: handle routes directly without Express initialization issues
+// Standalone Vercel Serverless API Handler
+// All dependencies inlined to avoid module resolution issues
 
-import { storage } from '../server/storage';
-import { insertTestimonialSchema } from '../shared/schema';
+import { drizzle } from 'drizzle-orm/node-postgres';
+import pg from 'pg';
+const { Pool } = pg;
+import { desc, eq, sql } from 'drizzle-orm';
+import { pgTable, text, varchar, timestamp } from 'drizzle-orm/pg-core';
+import { createInsertSchema } from 'drizzle-zod';
+import { z } from 'zod';
 import { fromError } from 'zod-validation-error';
+
+// ============================================================================
+// SCHEMA DEFINITIONS (inlined from shared/schema.ts)
+// ============================================================================
+
+const testimonials = pgTable("testimonials", {
+    id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+    platform: text("platform").notNull(),
+    postUrl: text("post_url").notNull(),
+    authorName: text("author_name").notNull(),
+    authorHandle: text("author_handle"),
+    content: text("content").notNull(),
+    imageUrl: text("image_url"),
+    createdAt: timestamp("created_at").defaultNow().notNull(),
+});
+
+const insertTestimonialSchema = createInsertSchema(testimonials).pick({
+    platform: true,
+    postUrl: true,
+    authorName: true,
+    authorHandle: true,
+    content: true,
+    imageUrl: true,
+}).extend({
+    platform: z.enum(['instagram', 'x'], {
+        errorMap: () => ({ message: "Platform must be 'instagram' or 'x'" })
+    }),
+    postUrl: z.string().url("Please enter a valid URL"),
+    authorName: z.string().min(1, "Author name is required"),
+    content: z.string().min(1, "Content is required"),
+});
+
+type Testimonial = typeof testimonials.$inferSelect;
+type InsertTestimonial = z.infer<typeof insertTestimonialSchema>;
+
+// ============================================================================
+// DATABASE CONNECTION (inlined from server/storage.ts)
+// ============================================================================
+
+let db: ReturnType<typeof drizzle> | null = null;
+
+function getDatabase() {
+    if (!db) {
+        const connectionString = process.env.DATABASE_URL;
+        if (!connectionString) {
+            throw new Error('DATABASE_URL environment variable is not set');
+        }
+
+        const pool = new Pool({
+            connectionString,
+            max: 1, // Limit connections in serverless
+            idleTimeoutMillis: 30000,
+            connectionTimeoutMillis: 10000,
+        });
+
+        db = drizzle(pool);
+        console.log('✅ Database connection initialized');
+    }
+    return db;
+}
+
+// ============================================================================
+// STORAGE METHODS (inlined from server/storage.ts)
+// ============================================================================
+
+async function getTestimonials(): Promise<Testimonial[]> {
+    const database = getDatabase();
+    return await database
+        .select()
+        .from(testimonials)
+        .orderBy(desc(testimonials.createdAt));
+}
+
+async function createTestimonial(insertTestimonial: InsertTestimonial): Promise<Testimonial> {
+    const database = getDatabase();
+    const [testimonial] = await database
+        .insert(testimonials)
+        .values({
+            platform: insertTestimonial.platform,
+            postUrl: insertTestimonial.postUrl,
+            authorName: insertTestimonial.authorName,
+            authorHandle: insertTestimonial.authorHandle ?? null,
+            content: insertTestimonial.content,
+            imageUrl: insertTestimonial.imageUrl ?? null,
+        })
+        .returning();
+    return testimonial;
+}
+
+async function deleteTestimonial(id: string): Promise<boolean> {
+    const database = getDatabase();
+    const result = await database
+        .delete(testimonials)
+        .where(eq(testimonials.id, id))
+        .returning();
+    return result.length > 0;
+}
+
+// ============================================================================
+// VERCEL SERVERLESS HANDLER
+// ============================================================================
 
 export default async function handler(req: any, res: any) {
     try {
@@ -24,9 +130,9 @@ export default async function handler(req: any, res: any) {
 
         // Route: GET /api/testimonials
         if (pathname === '/api/testimonials' && req.method === 'GET') {
-            const testimonials = await storage.getTestimonials();
-            console.log(`[API] Fetched ${testimonials.length} testimonials`);
-            return res.status(200).json(testimonials);
+            const testimonialsList = await getTestimonials();
+            console.log(`[API] Fetched ${testimonialsList.length} testimonials`);
+            return res.status(200).json(testimonialsList);
         }
 
         // Route: POST /api/testimonials
@@ -40,7 +146,7 @@ export default async function handler(req: any, res: any) {
                 });
             }
 
-            const testimonial = await storage.createTestimonial(validationResult.data);
+            const testimonial = await createTestimonial(validationResult.data);
             console.log(`[API] Created testimonial: ${testimonial.authorName}`);
             return res.status(201).json(testimonial);
         }
@@ -52,7 +158,7 @@ export default async function handler(req: any, res: any) {
                 return res.status(400).json({ error: 'Testimonial ID required' });
             }
 
-            const deleted = await storage.deleteTestimonial(id);
+            const deleted = await deleteTestimonial(id);
             if (!deleted) {
                 return res.status(404).json({ error: 'Testimonial not found' });
             }
@@ -63,11 +169,11 @@ export default async function handler(req: any, res: any) {
 
         // Route: GET /api/health
         if (pathname === '/api/health' && req.method === 'GET') {
-            const testimonials = await storage.getTestimonials();
+            const testimonialsList = await getTestimonials();
             return res.status(200).json({
                 status: 'healthy',
                 database: 'connected',
-                testimonialCount: testimonials.length,
+                testimonialCount: testimonialsList.length,
                 timestamp: new Date().toISOString()
             });
         }
@@ -90,4 +196,3 @@ export default async function handler(req: any, res: any) {
         });
     }
 }
-
