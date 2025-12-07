@@ -143,8 +143,8 @@ export default function Footer() {
         <div className="border-t border-border mt-16 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-muted-foreground">
           <p>&copy; {currentYear} ApexVerse. All rights reserved.</p>
           <div className="flex gap-6">
-            <Link href="/privacy" className="hover:text-foreground transition-colors">Privacy Policy</Link>
-            <Link href="/terms" className="hover:text-foreground transition-colors">Terms of Service</Link>
+            <Link href="/policies" className="hover:text-foreground transition-colors">Privacy Policy</Link>
+            <Link href="/policies" className="hover:text-foreground transition-colors">Terms of Service</Link>
           </div>
         </div>
       </div>

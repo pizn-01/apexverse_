@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
-import { Instagram, Twitter, ExternalLink, Quote } from "lucide-react";
+import { Instagram, ExternalLink, Quote } from "lucide-react";
+import { XIcon } from "@/components/icons/XIcon";
 import type { Testimonial } from "@shared/schema";
 import { Card, CardContent } from "@/components/ui/card";
 
@@ -69,7 +70,7 @@ export default function TestimonialCard({ testimonial, index }: TestimonialCardP
                                 {testimonial.platform === "instagram" ? (
                                     <Instagram className="w-5 h-5 text-pink-600 dark:text-pink-300 group-hover:scale-110 transition-transform" />
                                 ) : (
-                                    <Twitter className="w-5 h-5 text-blue-500 dark:text-blue-300 group-hover:scale-110 transition-transform" />
+                                    <XIcon className="w-4 h-4 text-foreground dark:text-gray-100 group-hover:scale-110 transition-transform" />
                                 )}
                             </a>
                             <a

@@ -84,19 +84,19 @@ export default function TestimonialsSlider() {
                                 variant="outline"
                                 size="icon"
                                 onClick={scrollPrev}
-                                className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 hidden md:flex bg-card border-card-border shadow-lg hover:bg-muted dark:bg-card dark:border-card-border dark:hover:bg-muted"
+                                className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-6 hidden md:flex rounded-full bg-background/80 backdrop-blur-sm border-border shadow-lg hover:bg-background/90 hover:scale-110 transition-all duration-300 z-10"
                                 aria-label="Previous testimonials"
                             >
-                                <ChevronLeft className="w-5 h-5 text-foreground dark:text-gray-200" />
+                                <ChevronLeft className="w-6 h-6 text-foreground" />
                             </Button>
                             <Button
                                 variant="outline"
                                 size="icon"
                                 onClick={scrollNext}
-                                className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 hidden md:flex bg-card border-card-border shadow-lg hover:bg-muted dark:bg-card dark:border-card-border dark:hover:bg-muted"
+                                className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-6 hidden md:flex rounded-full bg-background/80 backdrop-blur-sm border-border shadow-lg hover:bg-background/90 hover:scale-110 transition-all duration-300 z-10"
                                 aria-label="Next testimonials"
                             >
-                                <ChevronRight className="w-5 h-5 text-foreground dark:text-gray-200" />
+                                <ChevronRight className="w-6 h-6 text-foreground" />
                             </Button>
                         </>
                     )}
