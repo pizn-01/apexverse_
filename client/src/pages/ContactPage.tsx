@@ -76,8 +76,8 @@ export default function ContactPage() {
                       <div>
                         <CardTitle>Email</CardTitle>
                         <CardDescription className="text-base">
-                          <a href="mailto:contact@apexverse.com" className="text-foreground hover:underline" data-testid="link-email">
-                            contact@apexverse.com
+                          <a href="mailto:contact@apexverse.site" className="text-foreground hover:underline" data-testid="link-email">
+                            contact@apexverse.site
                           </a>
                         </CardDescription>
                       </div>

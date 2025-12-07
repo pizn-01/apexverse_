@@ -60,11 +60,11 @@ export default function InterestFormPage() {
                 <div>
                   <p className="font-medium mb-1">Email Us Directly</p>
                   <a
-                    href="mailto:contact@apexverse.com"
+                    href="mailto:contact@apexverse.site"
                     className="text-foreground hover:underline"
                     data-testid="link-email-contact"
                   >
-                    contact@apexverse.com
+                    contact@apexverse.site
                   </a>
                 </div>
               </div>

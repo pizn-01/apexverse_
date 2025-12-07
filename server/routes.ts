@@ -5,31 +5,59 @@ import { insertContactSubmissionSchema, insertTestimonialSchema } from "@shared/
 import { fromError } from "zod-validation-error";
 import { JSDOM } from "jsdom";
 
+import nodemailer from "nodemailer";
+
 async function sendEmailNotification(submission: any) {
-  // Email notification logic
-  // In production, this would use a service like SendGrid, AWS SES, or Nodemailer
-  // For now, we'll log the notification details
-  console.log("📧 New Contact Form Submission:");
-  console.log(`Name: ${submission.name}`);
-  console.log(`Email: ${submission.email}`);
-  console.log(`Subject: ${submission.subject || "No subject"}`);
-  console.log(`Message: ${submission.message}`);
-  console.log("---");
+  // Check if SMTP credentials are provided
+  if (!process.env.SMTP_HOST || !process.env.SMTP_USER || !process.env.SMTP_PASS) {
+    console.warn("⚠️ SMTP credentials missing. Skipping email sending.");
+    console.log("📝 Submission details:", submission);
+    return;
+  }
 
-  // In production, you would:
-  // 1. Configure email service (e.g., nodemailer with SMTP)
-  // 2. Send email to contact@apexverse.com
-  // 3. Optionally send confirmation email to the submitter
+  try {
+    const transporter = nodemailer.createTransport({
+      host: process.env.SMTP_HOST,
+      port: parseInt(process.env.SMTP_PORT || "587"),
+      secure: false, // true for 465, false for other ports
+      auth: {
+        user: process.env.SMTP_USER,
+        pass: process.env.SMTP_PASS,
+      },
+    });
 
-  // Example production code:
-  // await emailService.send({
-  //   to: "contact@apexverse.com",
-  //   subject: `New Contact Form: ${submission.subject || "No subject"}`,
-  //   html: `<h2>New Contact Form Submission</h2>
-  //          <p><strong>From:</strong> ${submission.name} (${submission.email})</p>
-  //          <p><strong>Message:</strong></p>
-  //          <p>${submission.message}</p>`
-  // });
+    // Send email to admin
+    await transporter.sendMail({
+      from: `"ApexVerse Contact" <${process.env.SMTP_USER}>`, // Sender address
+      to: "contact@apexverse.site", // List of receivers
+      subject: `New Contact Form: ${submission.subject || "No subject"}`, // Subject line
+      html: `
+        <h2>New Contact Form Submission</h2>
+        <p><strong>From:</strong> ${submission.name} (<a href="mailto:${submission.email}">${submission.email}</a>)</p>
+        <p><strong>Subject:</strong> ${submission.subject || "No subject"}</p>
+        <p><strong>Message:</strong></p>
+        <blockquote style="background: #f9f9f9; padding: 10px; border-left: 4px solid #ccc;">
+          ${submission.message.replace(/\n/g, "<br>")}
+        </blockquote>
+      `,
+    });
+
+    console.log("✅ Email sent successfully to contact@apexverse.site");
+
+    // Optional: Send auto-reply to user
+    /*
+    await transporter.sendMail({
+      from: `"ApexVerse" <${process.env.SMTP_USER}>`,
+      to: submission.email,
+      subject: "We received your message!",
+      html: `<p>Hi ${submission.name},</p><p>Thanks for reaching out. We'll get back to you shortly.</p>`
+    });
+    */
+
+  } catch (error) {
+    console.error("❌ Error sending email:", error);
+    // Don't throw, so we don't fail the request completely if email service is down
+  }
 }
 
 export async function registerRoutes(app: Express): Promise<Server> {

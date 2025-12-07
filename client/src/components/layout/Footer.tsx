@@ -26,12 +26,12 @@ export default function Footer() {
 
             <div className="flex flex-col gap-4 pt-4">
               <a
-                href="mailto:contact@apexverse.com"
+                href="mailto:contact@apexverse.site"
                 className="flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors w-fit"
                 aria-label="Email"
               >
                 <Mail className="h-4 w-4" />
-                <span>contact@apexverse.com</span>
+                <span>contact@apexverse.site</span>
               </a>
             </div>
           </div>
