@@ -1,8 +1,7 @@
-import { config } from 'dotenv';
-
 // Only load dotenv in development (Vercel provides env vars directly)
 if (process.env.NODE_ENV !== 'production') {
-  config();
+  // Use require for synchronous loading in development
+  require('dotenv').config();
 }
 
 import { type ContactSubmission, type InsertContactSubmission, type Testimonial, type InsertTestimonial, contactSubmissions, testimonials } from "@shared/schema";

@@ -187,7 +187,7 @@ export default function HomePage() {
                   viewport={{ once: true }}
                   transition={{ duration: 0.4, delay: 0.2 }}
                 >
-                  <CheckCircle2 className="h-6 w-6 text-primary flex-shrink-0 mt-1" />
+                  <CheckCircle2 className="h-6 w-6 icon-primary flex-shrink-0 mt-1" />
                   <div>
                     <h3 className="font-semibold text-lg mb-1">Launch Kits</h3>
                     <p className="text-muted-foreground">Comprehensive packages perfect for debut authors getting their first book out.</p>
@@ -201,7 +201,7 @@ export default function HomePage() {
                   viewport={{ once: true }}
                   transition={{ duration: 0.4, delay: 0.3 }}
                 >
-                  <CheckCircle2 className="h-6 w-6 text-primary flex-shrink-0 mt-1" />
+                  <CheckCircle2 className="h-6 w-6 icon-primary flex-shrink-0 mt-1" />
                   <div>
                     <h3 className="font-semibold text-lg mb-1">Full Service Contract</h3>
                     <p className="text-muted-foreground">Everything handled for you. Focus entirely on writing your next masterpiece.</p>

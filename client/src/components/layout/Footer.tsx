@@ -1,6 +1,7 @@
 import { Link } from "wouter";
 import { Mail, Instagram } from "lucide-react";
 import { ThreadsIcon } from "@/components/icons/ThreadsIcon";
+import { XIcon } from "@/components/icons/XIcon";
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
@@ -52,13 +53,22 @@ export default function Footer() {
                     <Instagram className="h-5 w-5" />
                   </a>
                   <a
-                    href="https://www.threads.com/@marnus644?igshid=NTc4MTIwNjQ2YQ=="
+                    href="https://www.threads.net/@marnus644?igshid=NTc4MTIwNjQ2YQ=="
                     target="_blank"
                     rel="noopener noreferrer"
                     className="p-2.5 rounded-full bg-background border border-border hover:border-primary/50 hover:bg-primary/5 hover:text-primary transition-all duration-300"
                     aria-label="Mark's Threads"
                   >
                     <ThreadsIcon className="h-5 w-5" />
+                  </a>
+                  <a
+                    href="https://x.com/marnus644"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="p-2.5 rounded-full bg-background border border-border hover:border-primary/50 hover:bg-primary/5 hover:text-primary transition-all duration-300"
+                    aria-label="Mark's X (formerly Twitter)"
+                  >
+                    <XIcon className="h-5 w-5" />
                   </a>
                 </div>
               </div>
@@ -76,13 +86,22 @@ export default function Footer() {
                     <Instagram className="h-5 w-5" />
                   </a>
                   <a
-                    href="https://www.threads.com/@birdiejamesauthor?igshid=NTc4MTIwNjQ2YQ=="
+                    href="https://www.threads.net/@birdiejamesauthor?igshid=NTc4MTIwNjQ2YQ=="
                     target="_blank"
                     rel="noopener noreferrer"
                     className="p-2.5 rounded-full bg-background border border-border hover:border-primary/50 hover:bg-primary/5 hover:text-primary transition-all duration-300"
                     aria-label="Birdie's Threads"
                   >
                     <ThreadsIcon className="h-5 w-5" />
+                  </a>
+                  <a
+                    href="https://x.com/birdiejamesauthor"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="p-2.5 rounded-full bg-background border border-border hover:border-primary/50 hover:bg-primary/5 hover:text-primary transition-all duration-300"
+                    aria-label="Birdie's X (formerly Twitter)"
+                  >
+                    <XIcon className="h-5 w-5" />
                   </a>
                 </div>
               </div>

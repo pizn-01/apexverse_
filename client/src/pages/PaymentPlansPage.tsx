@@ -36,14 +36,14 @@ export default function PaymentPlansPage() {
             <Card>
               <CardHeader>
                 <CardTitle className="font-serif text-3xl">Standard Launch Kit</CardTitle>
-                <div className="text-4xl font-bold text-primary mt-4">$998 Total</div>
+                <div className="text-4xl font-bold text-foreground mt-4">$998 Total</div>
                 <CardDescription className="text-base">
                   Payment is due before any services are rendered
                 </CardDescription>
               </CardHeader>
               <CardContent>
                 <h4 className="font-semibold text-lg mb-6">Available Payment Structures:</h4>
-                
+
                 <div className="space-y-4">
                   <div className="flex items-start gap-4 p-4 bg-card rounded-lg border border-card-border hover-elevate transition-all">
                     <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
@@ -51,7 +51,7 @@ export default function PaymentPlansPage() {
                     </div>
                     <div className="flex-1">
                       <p className="font-semibold mb-1">One Payment</p>
-                      <p className="text-2xl font-bold text-primary">$998</p>
+                      <p className="text-2xl font-bold text-foreground">$998</p>
                     </div>
                   </div>
 
@@ -61,7 +61,7 @@ export default function PaymentPlansPage() {
                     </div>
                     <div className="flex-1">
                       <p className="font-semibold mb-1">Two Payments</p>
-                      <p className="text-2xl font-bold text-primary">$499 <span className="text-base font-normal text-muted-foreground">each</span></p>
+                      <p className="text-2xl font-bold text-foreground">$499 <span className="text-base font-normal text-muted-foreground">each</span></p>
                     </div>
                   </div>
 
@@ -71,7 +71,7 @@ export default function PaymentPlansPage() {
                     </div>
                     <div className="flex-1">
                       <p className="font-semibold mb-1">Three Payments</p>
-                      <p className="text-2xl font-bold text-primary">$332.66 <span className="text-base font-normal text-muted-foreground">each</span></p>
+                      <p className="text-2xl font-bold text-foreground">$332.66 <span className="text-base font-normal text-muted-foreground">each</span></p>
                     </div>
                   </div>
 
@@ -81,7 +81,7 @@ export default function PaymentPlansPage() {
                     </div>
                     <div className="flex-1">
                       <p className="font-semibold mb-1">Four Payments</p>
-                      <p className="text-2xl font-bold text-primary">$249.50 <span className="text-base font-normal text-muted-foreground">each</span></p>
+                      <p className="text-2xl font-bold text-foreground">$249.50 <span className="text-base font-normal text-muted-foreground">each</span></p>
                     </div>
                   </div>
                 </div>
@@ -91,14 +91,14 @@ export default function PaymentPlansPage() {
             <Card>
               <CardHeader>
                 <CardTitle className="font-serif text-3xl">Full Service Contract</CardTitle>
-                <div className="text-4xl font-bold text-primary mt-4">$2,500/month</div>
+                <div className="text-4xl font-bold text-foreground mt-4">$2,500/month</div>
                 <CardDescription className="text-base">
                   6-month minimum retainer with flexible payment schedules
                 </CardDescription>
               </CardHeader>
               <CardContent>
                 <h4 className="font-semibold text-lg mb-6">Available Payment Structures:</h4>
-                
+
                 <div className="space-y-4">
                   <div className="flex items-start gap-4 p-4 bg-card rounded-lg border border-card-border hover-elevate transition-all">
                     <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
@@ -106,7 +106,7 @@ export default function PaymentPlansPage() {
                     </div>
                     <div className="flex-1">
                       <p className="font-semibold mb-1">Monthly Payment</p>
-                      <p className="text-2xl font-bold text-primary">$2,500</p>
+                      <p className="text-2xl font-bold text-foreground">$2,500</p>
                       <p className="text-sm text-muted-foreground mt-1">Due once a month by the 15th</p>
                     </div>
                   </div>
@@ -117,7 +117,7 @@ export default function PaymentPlansPage() {
                     </div>
                     <div className="flex-1">
                       <p className="font-semibold mb-1">Bi-Weekly Payments</p>
-                      <p className="text-2xl font-bold text-primary">$1,250 <span className="text-base font-normal text-muted-foreground">each</span></p>
+                      <p className="text-2xl font-bold text-foreground">$1,250 <span className="text-base font-normal text-muted-foreground">each</span></p>
                       <p className="text-sm text-muted-foreground mt-1">Two payments per month</p>
                     </div>
                   </div>
@@ -128,7 +128,7 @@ export default function PaymentPlansPage() {
                     </div>
                     <div className="flex-1">
                       <p className="font-semibold mb-1">Weekly Payments</p>
-                      <p className="text-2xl font-bold text-primary">$625 <span className="text-base font-normal text-muted-foreground">each</span></p>
+                      <p className="text-2xl font-bold text-foreground">$625 <span className="text-base font-normal text-muted-foreground">each</span></p>
                       <p className="text-sm text-muted-foreground mt-1">Four payments per month</p>
                     </div>
                   </div>

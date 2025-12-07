@@ -41,98 +41,98 @@ export default function PricingPage() {
         <div className="max-w-6xl mx-auto px-6">
           <RevealGroup className="grid lg:grid-cols-3 gap-8 mb-20">
             <RevealItem>
-            <Card className="hover-elevate transition-all">
-              <CardHeader>
-                <Badge variant="secondary" className="w-fit mb-2">Most Flexible</Badge>
-                <CardTitle className="font-serif text-3xl">Basic Kit</CardTitle>
-                <div className="text-4xl font-bold text-primary mt-4">$499</div>
-                <CardDescription className="text-base">
-                  One-time payment. Due upfront.
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <ul className="space-y-2 text-sm text-muted-foreground mb-6">
-                  <li>• Book Cover</li>
-                  <li>• 3 Character Scenes</li>
-                  <li>• 7 Promotional Graphics</li>
-                  <li>• 1 Book Mockup</li>
-                  <li>• 2 Chapter Header Variations</li>
-                  <li>• Proofread & Content Pull</li>
-                </ul>
-                <Link href="/interest-form">
-                  <Button variant="outline" className="w-full" data-testid="button-get-basic">
-                    Get Started
-                  </Button>
-                </Link>
-              </CardContent>
-            </Card>
+              <Card className="hover-elevate transition-all">
+                <CardHeader>
+                  <Badge variant="secondary" className="w-fit mb-2">Most Flexible</Badge>
+                  <CardTitle className="font-serif text-3xl">Basic Kit</CardTitle>
+                  <div className="text-4xl font-bold text-foreground mt-4">$499</div>
+                  <CardDescription className="text-base">
+                    One-time payment. Due upfront.
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <ul className="space-y-2 text-sm text-muted-foreground mb-6">
+                    <li>• Book Cover</li>
+                    <li>• 3 Character Scenes</li>
+                    <li>• 7 Promotional Graphics</li>
+                    <li>• 1 Book Mockup</li>
+                    <li>• 2 Chapter Header Variations</li>
+                    <li>• Proofread & Content Pull</li>
+                  </ul>
+                  <Link href="/interest-form">
+                    <Button variant="outline" className="w-full" data-testid="button-get-basic">
+                      Get Started
+                    </Button>
+                  </Link>
+                </CardContent>
+              </Card>
             </RevealItem>
 
             <RevealItem>
-            <Card className="hover-elevate transition-all border-primary shadow-lg">
-              <CardHeader>
-                <Badge variant="default" className="w-fit mb-2">Best Value</Badge>
-                <CardTitle className="font-serif text-3xl">Standard Kit</CardTitle>
-                <div className="text-4xl font-bold text-primary mt-4">$998</div>
-                <CardDescription className="text-base">
-                  Flexible payment plans available.
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <ul className="space-y-2 text-sm text-muted-foreground mb-6">
-                  <li>• 2 Book Cover Variations</li>
-                  <li>• 6 Character Scenes</li>
-                  <li>• 15 Promotional Graphics</li>
-                  <li>• Book Formatting</li>
-                  <li>• Publishing Setup (KDP, Ingram, B&N)</li>
-                  <li>• Copyright Office Setup</li>
-                </ul>
-                <Link href="/interest-form">
-                  <Button variant="default" className="w-full" data-testid="button-get-standard">
-                    Get Started
-                  </Button>
-                </Link>
-                <Link href="/payment-plans">
-                  <Button variant="ghost" className="w-full mt-2" data-testid="button-standard-plans">
-                    View Payment Plans
-                  </Button>
-                </Link>
-              </CardContent>
-            </Card>
+              <Card className="hover-elevate transition-all border-primary shadow-lg">
+                <CardHeader>
+                  <Badge variant="default" className="w-fit mb-2">Best Value</Badge>
+                  <CardTitle className="font-serif text-3xl">Standard Kit</CardTitle>
+                  <div className="text-4xl font-bold text-foreground mt-4">$998</div>
+                  <CardDescription className="text-base">
+                    Flexible payment plans available.
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <ul className="space-y-2 text-sm text-muted-foreground mb-6">
+                    <li>• 2 Book Cover Variations</li>
+                    <li>• 6 Character Scenes</li>
+                    <li>• 15 Promotional Graphics</li>
+                    <li>• Book Formatting</li>
+                    <li>• Publishing Setup (KDP, Ingram, B&N)</li>
+                    <li>• Copyright Office Setup</li>
+                  </ul>
+                  <Link href="/interest-form">
+                    <Button variant="default" className="w-full" data-testid="button-get-standard">
+                      Get Started
+                    </Button>
+                  </Link>
+                  <Link href="/payment-plans">
+                    <Button variant="ghost" className="w-full mt-2" data-testid="button-standard-plans">
+                      View Payment Plans
+                    </Button>
+                  </Link>
+                </CardContent>
+              </Card>
             </RevealItem>
 
             <RevealItem>
-            <Card className="hover-elevate transition-all h-full flex flex-col">
-              <CardHeader>
-                <Badge variant="secondary" className="w-fit mb-2">Complete Solution</Badge>
-                <CardTitle className="font-serif text-3xl">Full Service</CardTitle>
-                <div className="text-4xl font-bold text-primary mt-2">$2,500</div>
-                <div className="text-sm text-muted-foreground">per month</div>
-                <CardDescription className="text-base mt-2">
-                  6-month minimum. Flexible payment schedules.
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="flex-1 flex flex-col">
-                <ul className="space-y-2 text-sm text-muted-foreground mb-6">
-                  <li>• Everything in Standard Kit</li>
-                  <li>• Social Media Management</li>
-                  <li>• Monthly Newsletters</li>
-                  <li>• ARC & Street Team Management</li>
-                  <li>• Website Management</li>
-                  <li>• Book Trailers</li>
-                </ul>
-                <Link href="/interest-form">
-                  <Button variant="outline" className="w-full" data-testid="button-get-fullservice-pricing">
-                    Request Quote
-                  </Button>
-                </Link>
-                <Link href="/payment-plans">
-                  <Button variant="ghost" className="w-full mt-2" data-testid="button-fullservice-plans">
-                    View Payment Plans
-                  </Button>
-                </Link>
-              </CardContent>
-            </Card>
+              <Card className="hover-elevate transition-all h-full flex flex-col">
+                <CardHeader>
+                  <Badge variant="secondary" className="w-fit mb-2">Complete Solution</Badge>
+                  <CardTitle className="font-serif text-3xl">Full Service</CardTitle>
+                  <div className="text-4xl font-bold text-foreground mt-2">$2,500</div>
+                  <div className="text-sm text-muted-foreground">per month</div>
+                  <CardDescription className="text-base mt-2">
+                    6-month minimum. Flexible payment schedules.
+                  </CardDescription>
+                </CardHeader>
+                <CardContent className="flex-1 flex flex-col">
+                  <ul className="space-y-2 text-sm text-muted-foreground mb-6">
+                    <li>• Everything in Standard Kit</li>
+                    <li>• Social Media Management</li>
+                    <li>• Monthly Newsletters</li>
+                    <li>• ARC & Street Team Management</li>
+                    <li>• Website Management</li>
+                    <li>• Book Trailers</li>
+                  </ul>
+                  <Link href="/interest-form">
+                    <Button variant="outline" className="w-full" data-testid="button-get-fullservice-pricing">
+                      Request Quote
+                    </Button>
+                  </Link>
+                  <Link href="/payment-plans">
+                    <Button variant="ghost" className="w-full mt-2" data-testid="button-fullservice-plans">
+                      View Payment Plans
+                    </Button>
+                  </Link>
+                </CardContent>
+              </Card>
             </RevealItem>
           </RevealGroup>
 
@@ -155,7 +155,7 @@ export default function PricingPage() {
                       className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 pb-4 border-b border-border last:border-0"
                     >
                       <span className="font-medium">{item.service}</span>
-                      <span className="text-primary font-semibold">{item.price}</span>
+                      <span className="text-foreground font-semibold">{item.price}</span>
                     </div>
                   ))}
                 </div>

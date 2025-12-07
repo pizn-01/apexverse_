@@ -34,7 +34,7 @@ export default function TimeframesPage() {
                 <div className="space-y-4">
                   <div>
                     <Badge variant="secondary" className="mb-2">Standard Orders</Badge>
-                    <p className="text-2xl font-bold text-primary">2-3 Business Days</p>
+                    <p className="text-2xl font-bold text-foreground">2-3 Business Days</p>
                   </div>
                   <div>
                     <Badge variant="outline" className="mb-2">Larger Orders</Badge>
@@ -56,7 +56,7 @@ export default function TimeframesPage() {
               </CardHeader>
               <CardContent>
                 <div>
-                  <p className="text-2xl font-bold text-primary">1-2 Business Days</p>
+                  <p className="text-2xl font-bold text-foreground">1-2 Business Days</p>
                   <p className="text-sm text-muted-foreground mt-2">Fast turnaround for administrative tasks</p>
                 </div>
               </CardContent>
@@ -74,7 +74,7 @@ export default function TimeframesPage() {
               </CardHeader>
               <CardContent>
                 <div>
-                  <p className="text-2xl font-bold text-primary">Within 24 Hours</p>
+                  <p className="text-2xl font-bold text-foreground">Within 24 Hours</p>
                   <p className="text-sm text-muted-foreground mt-2">Prompt response for all inquiries</p>
                 </div>
               </CardContent>
@@ -95,7 +95,7 @@ export default function TimeframesPage() {
 
           <div>
             <h2 className="font-serif font-bold text-4xl mb-8 text-center">You Want to Commission Us, Now What?</h2>
-            
+
             <div className="max-w-4xl mx-auto space-y-8">
               <div className="flex gap-6">
                 <div className="flex-shrink-0">

@@ -92,49 +92,49 @@ export default function ServicesPage() {
             <TabsContent value="overview" className="space-y-8">
               <RevealGroup className="grid md:grid-cols-3 gap-8">
                 <RevealItem>
-                <Card className="hover-elevate transition-all bg-card border border-card-border shadow-sm">
-                  <CardHeader>
-                    <CardTitle className="font-serif text-2xl">À La Carte</CardTitle>
-                    <CardDescription className="text-base leading-relaxed">
-                      Geared more for authors wanting to dip their toes in, or authors who are already handling many of these aspects but just need some help on a few select things.
-                    </CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <Button variant="outline" className="w-full" onClick={() => document.querySelector('[data-value="alacarte"]')?.dispatchEvent(new MouseEvent('click'))} data-testid="button-view-alacarte">
-                      View Services
-                    </Button>
-                  </CardContent>
-                </Card>
+                  <Card className="hover-elevate transition-all bg-card border border-card-border shadow-sm">
+                    <CardHeader>
+                      <CardTitle className="font-serif text-2xl">À La Carte</CardTitle>
+                      <CardDescription className="text-base leading-relaxed">
+                        Geared more for authors wanting to dip their toes in, or authors who are already handling many of these aspects but just need some help on a few select things.
+                      </CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                      <Button variant="outline" className="w-full" onClick={() => document.querySelector('[data-value="alacarte"]')?.dispatchEvent(new MouseEvent('click'))} data-testid="button-view-alacarte">
+                        View Services
+                      </Button>
+                    </CardContent>
+                  </Card>
                 </RevealItem>
                 <RevealItem>
-                <Card className="hover-elevate transition-all bg-card border border-card-border shadow-sm">
-                  <CardHeader>
-                    <CardTitle className="font-serif text-2xl">Launch Kits</CardTitle>
-                    <CardDescription className="text-base leading-relaxed">
-                      Our Packages are curated to encompass the broad needs of authors getting their books out there. These are perfect for debut indie authors!
-                    </CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <Button variant="outline" className="w-full" onClick={() => document.querySelector('[data-value="kits"]')?.dispatchEvent(new MouseEvent('click'))} data-testid="button-view-kits">
-                      View Packages
-                    </Button>
-                  </CardContent>
-                </Card>
+                  <Card className="hover-elevate transition-all bg-card border border-card-border shadow-sm">
+                    <CardHeader>
+                      <CardTitle className="font-serif text-2xl">Launch Kits</CardTitle>
+                      <CardDescription className="text-base leading-relaxed">
+                        Our Packages are curated to encompass the broad needs of authors getting their books out there. These are perfect for debut indie authors!
+                      </CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                      <Button variant="outline" className="w-full" onClick={() => document.querySelector('[data-value="kits"]')?.dispatchEvent(new MouseEvent('click'))} data-testid="button-view-kits">
+                        View Packages
+                      </Button>
+                    </CardContent>
+                  </Card>
                 </RevealItem>
                 <RevealItem>
-                <Card className="hover-elevate transition-all bg-card border border-card-border shadow-sm">
-                  <CardHeader>
-                    <CardTitle className="font-serif text-2xl">Full Service</CardTitle>
-                    <CardDescription className="text-base leading-relaxed">
-                      For any author starting out who doesn't want to have to stress about the little things, or seasoned authors who just want to focus on writing.
-                    </CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <Button variant="outline" className="w-full" onClick={() => document.querySelector('[data-value="fullservice"]')?.dispatchEvent(new MouseEvent('click'))} data-testid="button-view-fullservice">
-                      View Details
-                    </Button>
-                  </CardContent>
-                </Card>
+                  <Card className="hover-elevate transition-all bg-card border border-card-border shadow-sm">
+                    <CardHeader>
+                      <CardTitle className="font-serif text-2xl">Full Service</CardTitle>
+                      <CardDescription className="text-base leading-relaxed">
+                        For any author starting out who doesn't want to have to stress about the little things, or seasoned authors who just want to focus on writing.
+                      </CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                      <Button variant="outline" className="w-full" onClick={() => document.querySelector('[data-value="fullservice"]')?.dispatchEvent(new MouseEvent('click'))} data-testid="button-view-fullservice">
+                        View Details
+                      </Button>
+                    </CardContent>
+                  </Card>
                 </RevealItem>
               </RevealGroup>
             </TabsContent>
@@ -172,7 +172,7 @@ export default function ServicesPage() {
                 <Card className="bg-card border border-card-border shadow-sm">
                   <CardHeader>
                     <CardTitle className="font-serif text-3xl">Basic Kit</CardTitle>
-                    <div className="text-4xl font-bold text-primary mt-4">$499</div>
+                    <div className="text-4xl font-bold text-foreground mt-4">$499</div>
                     <CardDescription className="text-base">
                       Perfect for authors who need essential artwork and promotional materials.
                     </CardDescription>
@@ -200,7 +200,7 @@ export default function ServicesPage() {
                 <Card className="bg-card border border-card-border shadow-sm">
                   <CardHeader>
                     <CardTitle className="font-serif text-3xl">Standard Kit</CardTitle>
-                    <div className="text-4xl font-bold text-primary mt-4">$998</div>
+                    <div className="text-4xl font-bold text-foreground mt-4">$998</div>
                     <CardDescription className="text-base">
                       Comprehensive package with publishing setup and extensive artwork.
                     </CardDescription>
@@ -231,7 +231,7 @@ export default function ServicesPage() {
               <Card className="bg-card border border-card-border shadow-sm">
                 <CardHeader>
                   <CardTitle className="font-serif text-3xl">Full Service Contract</CardTitle>
-                  <div className="text-4xl font-bold text-primary mt-4">$2,500/month</div>
+                  <div className="text-4xl font-bold text-foreground mt-4">$2,500/month</div>
                   <CardDescription className="text-base">
                     6-month minimum retainer. Everything handled for you so you can focus entirely on writing.
                   </CardDescription>

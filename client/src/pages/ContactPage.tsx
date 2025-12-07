@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Mail, Instagram, Send, MessageSquare } from "lucide-react";
+import { XIcon } from "@/components/icons/XIcon";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { insertContactSubmissionSchema, type InsertContactSubmission } from "@shared/schema";
@@ -74,7 +75,7 @@ export default function ContactPage() {
                       <div>
                         <CardTitle>Email</CardTitle>
                         <CardDescription className="text-base">
-                          <a href="mailto:contact@apexverse.com" className="text-primary hover:underline" data-testid="link-email">
+                          <a href="mailto:contact@apexverse.com" className="text-foreground hover:underline" data-testid="link-email">
                             contact@apexverse.com
                           </a>
                         </CardDescription>
@@ -96,18 +97,27 @@ export default function ContactPage() {
                             href="https://www.instagram.com/marnus644?igsh=MXd4Z2l2eW1pbnF5Zg%3D%3D&utm_source=qr"
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="flex items-center gap-2 text-primary hover:underline"
+                            className="flex items-center gap-2 text-foreground hover:underline"
                           >
                             <Instagram className="h-4 w-4 icon-default" />
                             @marnus644
                           </a>
                           <a
-                            href="https://www.threads.com/@marnus644?igshid=NTc4MTIwNjQ2YQ=="
+                            href="https://www.threads.net/@marnus644?igshid=NTc4MTIwNjQ2YQ=="
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="flex items-center gap-2 text-primary hover:underline"
+                            className="flex items-center gap-2 text-foreground hover:underline"
                           >
                             <MessageSquare className="h-4 w-4 icon-default" />
+                            @marnus644
+                          </a>
+                          <a
+                            href="https://x.com/marnus644"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="flex items-center gap-2 text-foreground hover:underline"
+                          >
+                            <XIcon className="h-4 w-4 icon-default" />
                             @marnus644
                           </a>
                         </CardDescription>
@@ -129,18 +139,27 @@ export default function ContactPage() {
                             href="https://www.instagram.com/birdiejamesauthor?igsh=ZzBjZ2lhc2E1ZGth"
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="flex items-center gap-2 text-primary hover:underline"
+                            className="flex items-center gap-2 text-foreground hover:underline"
                           >
                             <Instagram className="h-4 w-4" />
                             @birdiejamesauthor
                           </a>
                           <a
-                            href="https://www.threads.com/@birdiejamesauthor?igshid=NTc4MTIwNjQ2YQ=="
+                            href="https://www.threads.net/@birdiejamesauthor?igshid=NTc4MTIwNjQ2YQ=="
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="flex items-center gap-2 text-primary hover:underline"
+                            className="flex items-center gap-2 text-foreground hover:underline"
                           >
                             <MessageSquare className="h-4 w-4" />
+                            @birdiejamesauthor
+                          </a>
+                          <a
+                            href="https://x.com/birdiejamesauthor"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="flex items-center gap-2 text-foreground hover:underline"
+                          >
+                            <XIcon className="h-4 w-4" />
                             @birdiejamesauthor
                           </a>
                         </CardDescription>

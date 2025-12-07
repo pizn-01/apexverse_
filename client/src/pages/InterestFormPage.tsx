@@ -61,7 +61,7 @@ export default function InterestFormPage() {
                   <p className="font-medium mb-1">Email Us Directly</p>
                   <a
                     href="mailto:contact@apexverse.com"
-                    className="text-primary hover:underline"
+                    className="text-foreground hover:underline"
                     data-testid="link-email-contact"
                   >
                     contact@apexverse.com
