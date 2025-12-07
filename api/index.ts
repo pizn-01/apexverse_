@@ -123,8 +123,8 @@ export default async function handler(req: any, res: any) {
             return res.status(200).end();
         }
 
-        const url = new URL(req.url || '', `http://${req.headers.host}`);
-        const pathname = url.pathname;
+        // Get pathname from Vercel request - req.url contains the path
+        const pathname = req.url || '/api';
 
         console.log(`[API] ${req.method} ${pathname}`);
 
