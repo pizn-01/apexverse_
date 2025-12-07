@@ -1,6 +1,7 @@
 import { Card, CardContent } from "@/components/ui/card";
 import AnimatedHero from "@/components/layout/AnimatedHero";
-import { BookOpen, Palette, Instagram, MessageSquare } from "lucide-react";
+import { BookOpen, Palette, Instagram } from "lucide-react";
+import { ThreadsIcon } from "@/components/icons/ThreadsIcon";
 
 export default function AboutPage() {
   return (
@@ -68,13 +69,13 @@ export default function AboutPage() {
                           <span className="text-sm">Instagram</span>
                         </a>
                         <a
-                          href="https://www.threads.com/@birdiejamesauthor?igshid=NTc4MTIwNjQ2YQ=="
+                          href="https://www.threads.net/@birdiejamesauthor?igshid=NTc4MTIwNjQ2YQ=="
                           target="_blank"
                           rel="noopener noreferrer"
                           className="flex items-center gap-2 px-4 py-2 rounded-md bg-muted hover-elevate active-elevate-2 transition-all"
                           aria-label="Birdie's Threads"
                         >
-                          <MessageSquare className="h-4 w-4 icon-default" />
+                          <ThreadsIcon className="h-4 w-4 icon-default" />
                           <span className="text-sm">Threads</span>
                         </a>
                       </div>
@@ -119,13 +120,13 @@ export default function AboutPage() {
                           <span className="text-sm">Instagram</span>
                         </a>
                         <a
-                          href="https://www.threads.com/@marnus644?igshid=NTc4MTIwNjQ2YQ=="
+                          href="https://www.threads.net/@marnus644?igshid=NTc4MTIwNjQ2YQ=="
                           target="_blank"
                           rel="noopener noreferrer"
                           className="flex items-center gap-2 px-4 py-2 rounded-md bg-muted hover-elevate active-elevate-2 transition-all"
                           aria-label="Mark's Threads"
                         >
-                          <MessageSquare className="h-4 w-4" />
+                          <ThreadsIcon className="h-4 w-4" />
                           <span className="text-sm">Threads</span>
                         </a>
                       </div>

@@ -4,8 +4,9 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
-import { Mail, Instagram, Send, MessageSquare } from "lucide-react";
+import { Mail, Instagram, Send } from "lucide-react";
 import { XIcon } from "@/components/icons/XIcon";
+import { ThreadsIcon } from "@/components/icons/ThreadsIcon";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { insertContactSubmissionSchema, type InsertContactSubmission } from "@shared/schema";
@@ -108,7 +109,7 @@ export default function ContactPage() {
                             rel="noopener noreferrer"
                             className="flex items-center gap-2 text-foreground hover:underline"
                           >
-                            <MessageSquare className="h-4 w-4 icon-default" />
+                            <ThreadsIcon className="h-4 w-4 icon-default" />
                             @marnus644
                           </a>
                           <a
@@ -150,7 +151,7 @@ export default function ContactPage() {
                             rel="noopener noreferrer"
                             className="flex items-center gap-2 text-foreground hover:underline"
                           >
-                            <MessageSquare className="h-4 w-4" />
+                            <ThreadsIcon className="h-4 w-4" />
                             @birdiejamesauthor
                           </a>
                           <a
