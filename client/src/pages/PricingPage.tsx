@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -24,6 +25,25 @@ const aLaCartePricing = [
 ];
 
 export default function PricingPage() {
+  const [isExpanded, setIsExpanded] = useState(false);
+
+  const fullServiceItems = [
+    "• book cover (3 variations)",
+    "• character art (9 scenes)",
+    "• Book Mockup(2 Variations)",
+    "• Chapter Header (6 Variations)",
+    "• Proofread & Content Pull",
+    "• Book trailer Animation",
+    "• 30 promotional posts",
+    "• Social Media Management",
+    "• Monthly Newsletters",
+    "• ARC & Street Team Management",
+    "• Website Management",
+    "• Book Trailers"
+  ];
+
+  const visibleItems = isExpanded ? fullServiceItems : fullServiceItems.slice(0, 6);
+
   return (
     <div className="min-h-screen">
       <AnimatedHero heightClass="h-80">
@@ -114,29 +134,25 @@ export default function PricingPage() {
                 </CardHeader>
                 <CardContent className="flex-1 flex flex-col">
                   <ul className="space-y-2 text-sm text-muted-foreground mb-6">
-                    <li>• book cover (3 variations) </li>
-                    <li>• character art (9 scenes)</li>
-                    <li>• Book Mockup(2 Variations)</li>
-                    <li>• Chapter Header (6 Variations)</li>
-                    <li>• Proofread & Content Pull</li>
-                    <li>• Book trailer Animation</li>
-                    <li>• 30 promotional posts</li>
-                    <li>• Social Media Management</li>
-                    <li>• Monthly Newsletters</li>
-                    <li>• ARC & Street Team Management</li>
-                    <li>• Website Management</li>
-                    <li>• Book Trailers</li>
+                    {visibleItems.map((item, idx) => (
+                      <li key={idx}>{item}</li>
+                    ))}
                   </ul>
                   <Link href="/interest-form">
                     <Button variant="outline" className="w-full" data-testid="button-get-fullservice-pricing">
                       Request Quote
                     </Button>
                   </Link>
-                  <Link href="/services">
-                    <Button variant="ghost" className="w-full mt-2" data-testid="button-fullservice-readmore">
-                      Read More
-                    </Button>
-                  </Link>
+
+                  <Button
+                    variant="ghost"
+                    className="w-full mt-2"
+                    onClick={() => setIsExpanded(!isExpanded)}
+                    data-testid="button-fullservice-toggle"
+                  >
+                    {isExpanded ? "Show Less" : "Read More"}
+                  </Button>
+
                   <Link href="/payment-plans">
                     <Button variant="ghost" className="w-full" data-testid="button-fullservice-plans">
                       View Payment Plans
