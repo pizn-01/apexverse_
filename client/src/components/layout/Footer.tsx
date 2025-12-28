@@ -39,72 +39,25 @@ export default function Footer() {
           {/* Socials Section */}
           <div className="lg:col-span-3 space-y-6">
             <h4 className="font-semibold text-lg">Connect With Us</h4>
-            <div className="space-y-6">
-              <div>
-                <p className="text-xs font-bold text-muted-foreground uppercase tracking-wider mb-3">Mark</p>
-                <div className="flex gap-3">
-                  <a
-                    href="https://www.instagram.com/marnus644?igsh=MXd4Z2l2eW1pbnF5Zg%3D%3D&utm_source=qr"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="p-2.5 rounded-full bg-background border border-border hover:border-primary/50 hover:bg-primary/5 hover:text-primary transition-all duration-300"
-                    aria-label="Mark's Instagram"
-                  >
-                    <Instagram className="h-5 w-5" />
-                  </a>
-                  <a
-                    href="https://www.threads.net/@marnus644?igshid=NTc4MTIwNjQ2YQ=="
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="p-2.5 rounded-full bg-background border border-border hover:border-primary/50 hover:bg-primary/5 hover:text-primary transition-all duration-300"
-                    aria-label="Mark's Threads"
-                  >
-                    <ThreadsIcon className="h-5 w-5" />
-                  </a>
-                  <a
-                    href="https://x.com/marnus644"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="p-2.5 rounded-full bg-background border border-border hover:border-primary/50 hover:bg-primary/5 hover:text-primary transition-all duration-300"
-                    aria-label="Mark's X (formerly Twitter)"
-                  >
-                    <XIcon className="h-5 w-5" />
-                  </a>
-                </div>
-              </div>
-
-              <div>
-                <p className="text-xs font-bold text-muted-foreground uppercase tracking-wider mb-3">Birdie</p>
-                <div className="flex gap-3">
-                  <a
-                    href="https://www.instagram.com/birdiejamesauthor?igsh=ZzBjZ2lhc2E1ZGth"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="p-2.5 rounded-full bg-background border border-border hover:border-primary/50 hover:bg-primary/5 hover:text-primary transition-all duration-300"
-                    aria-label="Birdie's Instagram"
-                  >
-                    <Instagram className="h-5 w-5" />
-                  </a>
-                  <a
-                    href="https://www.threads.net/@birdiejamesauthor?igshid=NTc4MTIwNjQ2YQ=="
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="p-2.5 rounded-full bg-background border border-border hover:border-primary/50 hover:bg-primary/5 hover:text-primary transition-all duration-300"
-                    aria-label="Birdie's Threads"
-                  >
-                    <ThreadsIcon className="h-5 w-5" />
-                  </a>
-                  <a
-                    href="https://x.com/birdiejamesauthor"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="p-2.5 rounded-full bg-background border border-border hover:border-primary/50 hover:bg-primary/5 hover:text-primary transition-all duration-300"
-                    aria-label="Birdie's X (formerly Twitter)"
-                  >
-                    <XIcon className="h-5 w-5" />
-                  </a>
-                </div>
-              </div>
+            <div className="flex gap-3">
+              <a
+                href="https://www.instagram.com/apexverse.site?igsh=NXRmZ3VrMzN6YjZx&utm_source=qr"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-2.5 rounded-full bg-background border border-border hover:border-primary/50 hover:bg-primary/5 hover:text-primary transition-all duration-300"
+                aria-label="ApexVerse Instagram"
+              >
+                <Instagram className="h-5 w-5" />
+              </a>
+              <a
+                href="https://www.threads.com/@apexverse.site?igshid=NTc4MTIwNjQ2YQ=="
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-2.5 rounded-full bg-background border border-border hover:border-primary/50 hover:bg-primary/5 hover:text-primary transition-all duration-300"
+                aria-label="ApexVerse Threads"
+              >
+                <ThreadsIcon className="h-5 w-5" />
+              </a>
             </div>
           </div>
 

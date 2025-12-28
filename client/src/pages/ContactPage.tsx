@@ -92,76 +92,25 @@ export default function ContactPage() {
                         <Instagram className="h-6 w-6 icon-primary" />
                       </div>
                       <div>
-                        <CardTitle>Mark's Social Media</CardTitle>
+                        <CardTitle>Official Social Media</CardTitle>
                         <CardDescription className="text-base space-y-2 mt-2">
                           <a
-                            href="https://www.instagram.com/marnus644?igsh=MXd4Z2l2eW1pbnF5Zg%3D%3D&utm_source=qr"
+                            href="https://www.instagram.com/apexverse.site?igsh=NXRmZ3VrMzN6YjZx&utm_source=qr"
                             target="_blank"
                             rel="noopener noreferrer"
                             className="flex items-center gap-2 text-foreground hover:underline"
                           >
                             <Instagram className="h-4 w-4 icon-default" />
-                            @marnus644
+                            @apexverse.site
                           </a>
                           <a
-                            href="https://www.threads.net/@marnus644?igshid=NTc4MTIwNjQ2YQ=="
+                            href="https://www.threads.com/@apexverse.site?igshid=NTc4MTIwNjQ2YQ=="
                             target="_blank"
                             rel="noopener noreferrer"
                             className="flex items-center gap-2 text-foreground hover:underline"
                           >
                             <ThreadsIcon className="h-4 w-4 icon-default" />
-                            @marnus644
-                          </a>
-                          <a
-                            href="https://x.com/marnus644"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="flex items-center gap-2 text-foreground hover:underline"
-                          >
-                            <XIcon className="h-4 w-4 icon-default" />
-                            @marnus644
-                          </a>
-                        </CardDescription>
-                      </div>
-                    </div>
-                  </CardHeader>
-                </Card>
-
-                <Card>
-                  <CardHeader>
-                    <div className="flex items-center gap-4">
-                      <div className="w-12 h-12 rounded-full bg-secondary/10 flex items-center justify-center">
-                        <Instagram className="h-6 w-6 icon-secondary" />
-                      </div>
-                      <div>
-                        <CardTitle>Birdie's Social Media</CardTitle>
-                        <CardDescription className="text-base space-y-2 mt-2">
-                          <a
-                            href="https://www.instagram.com/birdiejamesauthor?igsh=ZzBjZ2lhc2E1ZGth"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="flex items-center gap-2 text-foreground hover:underline"
-                          >
-                            <Instagram className="h-4 w-4" />
-                            @birdiejamesauthor
-                          </a>
-                          <a
-                            href="https://www.threads.net/@birdiejamesauthor?igshid=NTc4MTIwNjQ2YQ=="
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="flex items-center gap-2 text-foreground hover:underline"
-                          >
-                            <ThreadsIcon className="h-4 w-4" />
-                            @birdiejamesauthor
-                          </a>
-                          <a
-                            href="https://x.com/birdiejamesauthor"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="flex items-center gap-2 text-foreground hover:underline"
-                          >
-                            <XIcon className="h-4 w-4" />
-                            @birdiejamesauthor
+                            @apexverse.site
                           </a>
                         </CardDescription>
                       </div>
@@ -203,8 +152,26 @@ export default function ContactPage() {
                   <Form {...form}>
                     <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
                       {form.formState.errors.root && (
-                        <div className="p-4 bg-destructive/10 border border-destructive/30 rounded-md text-destructive text-sm">
-                          {form.formState.errors.root.message}
+                        <div className="p-4 bg-destructive/10 border border-destructive/30 rounded-md text-destructive text-sm space-y-3">
+                          <p>{form.formState.errors.root.message}</p>
+                          <div className="pt-2">
+                            <Button
+                              type="button"
+                              variant="destructive"
+                              size="sm"
+                              className="w-full"
+                              onClick={() => {
+                                const values = form.getValues();
+                                const subject = encodeURIComponent(values.subject || "Contact Form Inquiry");
+                                const body = encodeURIComponent(
+                                  `Name: ${values.name}\nEmail: ${values.email}\n\nMessage:\n${values.message}`
+                                );
+                                window.location.href = `mailto:contact@apexverse.site?subject=${subject}&body=${body}`;
+                              }}
+                            >
+                              Open in Email Client
+                            </Button>
+                          </div>
                         </div>
                       )}
 

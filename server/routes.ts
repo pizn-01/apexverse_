@@ -81,10 +81,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
       });
 
       return res.status(201).json(submission);
-    } catch (error) {
-      console.error("Error creating contact submission:", error);
+    } catch (error: any) {
+      console.error("❌ Error creating contact submission:", error);
       return res.status(500).json({
-        error: "Failed to submit contact form. Please try again."
+        error: "Failed to submit contact form. " + (error.message || "Please try again or email us directly.")
       });
     }
   });

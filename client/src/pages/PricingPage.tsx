@@ -114,7 +114,13 @@ export default function PricingPage() {
                 </CardHeader>
                 <CardContent className="flex-1 flex flex-col">
                   <ul className="space-y-2 text-sm text-muted-foreground mb-6">
-                    <li>• Everything in Standard Kit</li>
+                    <li>• book cover (3 variations) </li>
+                    <li>• character art (9 scenes)</li>
+                    <li>• Book Mockup(2 Variations)</li>
+                    <li>• Chapter Header (6 Variations)</li>
+                    <li>• Proofread & Content Pull</li>
+                    <li>• Book trailer Animation</li>
+                    <li>• 30 promotional posts</li>
                     <li>• Social Media Management</li>
                     <li>• Monthly Newsletters</li>
                     <li>• ARC & Street Team Management</li>
@@ -126,8 +132,13 @@ export default function PricingPage() {
                       Request Quote
                     </Button>
                   </Link>
+                  <Link href="/services">
+                    <Button variant="ghost" className="w-full mt-2" data-testid="button-fullservice-readmore">
+                      Read More
+                    </Button>
+                  </Link>
                   <Link href="/payment-plans">
-                    <Button variant="ghost" className="w-full mt-2" data-testid="button-fullservice-plans">
+                    <Button variant="ghost" className="w-full" data-testid="button-fullservice-plans">
                       View Payment Plans
                     </Button>
                   </Link>
@@ -155,7 +166,10 @@ export default function PricingPage() {
                       className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 pb-4 border-b border-border last:border-0"
                     >
                       <span className="font-medium">{item.service}</span>
-                      <span className="text-foreground font-semibold">{item.price}</span>
+                      <span className="text-foreground font-semibold">
+                        <span className="text-muted-foreground font-normal text-sm mr-1">Starting from</span>
+                        {item.price}
+                      </span>
                     </div>
                   ))}
                 </div>
