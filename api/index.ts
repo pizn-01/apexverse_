@@ -208,6 +208,39 @@ export default async function handler(req: any, res: any) {
         console.log(`[API] ${req.method} ${pathname}`);
 
         // ------------------------------------------------------------------------
+        // MIGRATION ROUTE (ONE-TIME USE)
+        // ------------------------------------------------------------------------
+
+        // Route: POST /api/migrate (Creates portfolio_items table if it doesn't exist)
+        if (pathname === '/api/migrate' && req.method === 'POST') {
+            try {
+                const database = getDatabase();
+                await database.execute(sql`
+                    CREATE TABLE IF NOT EXISTS portfolio_items (
+                        id VARCHAR PRIMARY KEY DEFAULT gen_random_uuid(),
+                        title TEXT NOT NULL,
+                        category TEXT NOT NULL,
+                        line_art_url TEXT NOT NULL,
+                        full_art_url TEXT NOT NULL,
+                        description TEXT,
+                        created_at TIMESTAMP DEFAULT NOW() NOT NULL
+                    );
+                `);
+                console.log('[API] Portfolio table created/verified');
+                return res.status(200).json({
+                    success: true,
+                    message: 'Portfolio table created successfully'
+                });
+            } catch (error: any) {
+                console.error('[API] Migration error:', error);
+                return res.status(500).json({
+                    success: false,
+                    error: error.message
+                });
+            }
+        }
+
+        // ------------------------------------------------------------------------
         // PORTFOLIO ROUTES
         // ------------------------------------------------------------------------
 
