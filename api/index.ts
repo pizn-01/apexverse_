@@ -81,8 +81,8 @@ const insertPortfolioItemSchema = createInsertSchema(portfolioItems).pick({
 }).extend({
     title: z.string().min(1, "Title is required"),
     category: z.string().min(1, "Category is required"),
-    lineArtUrl: z.string().url("Please enter a valid URL for line art"),
-    fullArtUrl: z.string().url("Please enter a valid URL for full art"),
+    lineArtUrl: z.string().min(1, "Line art URL is required"),
+    fullArtUrl: z.string().min(1, "Full art URL is required"),
     description: z.string().optional(),
 });
 
