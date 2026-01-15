@@ -62,6 +62,8 @@ async function sendEmailNotification(submission: any) {
 }
 
 export async function registerRoutes(app: Express): Promise<Server> {
+  console.log("📝 Registering routes...");
+  
   app.post("/api/contact", async (req, res) => {
     try {
       const validationResult = insertContactSubmissionSchema.safeParse(req.body);
@@ -478,8 +480,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-
+  console.log("✅ All routes registered");
   const httpServer = createServer(app);
+  console.log("✅ HTTP server created");
 
   return httpServer;
 }

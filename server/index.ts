@@ -1,6 +1,10 @@
-import 'dotenv/config';
-
+import { config } from 'dotenv';
 import express, { type Request, Response, NextFunction } from "express";
+
+// Only load dotenv in development (Vercel provides env vars directly)
+if (process.env.NODE_ENV !== 'production') {
+  config();
+}
 import { registerRoutes } from "./routes";
 import { setupVite, serveStatic, log } from "./vite";
 
