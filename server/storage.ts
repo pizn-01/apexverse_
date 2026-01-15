@@ -4,7 +4,7 @@ if (process.env.NODE_ENV !== 'production') {
   require('dotenv').config();
 }
 
-import { type ContactSubmission, type InsertContactSubmission, type Testimonial, type InsertTestimonial, contactSubmissions, testimonials } from "@shared/schema";
+import { type ContactSubmission, type InsertContactSubmission, type Testimonial, type InsertTestimonial, type PortfolioItem, type InsertPortfolioItem, contactSubmissions, testimonials, portfolioItems } from "@shared/schema";
 import { randomUUID } from "crypto";
 import { drizzle } from 'drizzle-orm/node-postgres';
 import pg from 'pg';
@@ -21,6 +21,12 @@ export interface IStorage {
   getTestimonials(): Promise<Testimonial[]>;
   getTestimonial(id: string): Promise<Testimonial | undefined>;
   deleteTestimonial(id: string): Promise<boolean>;
+
+  // Portfolio methods
+  createPortfolioItem(item: InsertPortfolioItem): Promise<PortfolioItem>;
+  getPortfolioItems(): Promise<PortfolioItem[]>;
+  getPortfolioItem(id: string): Promise<PortfolioItem | undefined>;
+  deletePortfolioItem(id: string): Promise<boolean>;
 }
 
 // PostgreSQL Storage Implementation
@@ -103,16 +109,55 @@ export class PostgresStorage implements IStorage {
       .returning();
     return result.length > 0;
   }
+
+  async createPortfolioItem(insertItem: InsertPortfolioItem): Promise<PortfolioItem> {
+    const [item] = await this.db
+      .insert(portfolioItems)
+      .values({
+        title: insertItem.title,
+        category: insertItem.category,
+        lineArtUrl: insertItem.lineArtUrl,
+        fullArtUrl: insertItem.fullArtUrl,
+        description: insertItem.description ?? null,
+      })
+      .returning();
+    return item;
+  }
+
+  async getPortfolioItems(): Promise<PortfolioItem[]> {
+    return await this.db
+      .select()
+      .from(portfolioItems)
+      .orderBy(desc(portfolioItems.createdAt));
+  }
+
+  async getPortfolioItem(id: string): Promise<PortfolioItem | undefined> {
+    const [item] = await this.db
+      .select()
+      .from(portfolioItems)
+      .where(eq(portfolioItems.id, id));
+    return item;
+  }
+
+  async deletePortfolioItem(id: string): Promise<boolean> {
+    const result = await this.db
+      .delete(portfolioItems)
+      .where(eq(portfolioItems.id, id))
+      .returning();
+    return result.length > 0;
+  }
 }
 
 // In-Memory Storage Implementation (for development without database)
 export class MemStorage implements IStorage {
   private contactSubmissions: Map<string, ContactSubmission>;
   private testimonials: Map<string, Testimonial>;
+  private portfolioItems: Map<string, PortfolioItem>;
 
   constructor() {
     this.contactSubmissions = new Map();
     this.testimonials = new Map();
+    this.portfolioItems = new Map();
     console.log("⚠️  Using in-memory storage. Data will be lost on restart. Set DATABASE_URL to use persistent storage.");
   }
 
@@ -168,6 +213,35 @@ export class MemStorage implements IStorage {
 
   async deleteTestimonial(id: string): Promise<boolean> {
     return this.testimonials.delete(id);
+  }
+
+  async createPortfolioItem(insertItem: InsertPortfolioItem): Promise<PortfolioItem> {
+    const id = randomUUID();
+    const item: PortfolioItem = {
+      id,
+      title: insertItem.title,
+      category: insertItem.category,
+      lineArtUrl: insertItem.lineArtUrl,
+      fullArtUrl: insertItem.fullArtUrl,
+      description: insertItem.description ?? null,
+      createdAt: new Date(),
+    };
+    this.portfolioItems.set(id, item);
+    return item;
+  }
+
+  async getPortfolioItems(): Promise<PortfolioItem[]> {
+    return Array.from(this.portfolioItems.values()).sort(
+      (a, b) => b.createdAt.getTime() - a.createdAt.getTime()
+    );
+  }
+
+  async getPortfolioItem(id: string): Promise<PortfolioItem | undefined> {
+    return this.portfolioItems.get(id);
+  }
+
+  async deletePortfolioItem(id: string): Promise<boolean> {
+    return this.portfolioItems.delete(id);
   }
 }
 

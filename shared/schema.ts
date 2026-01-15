@@ -56,3 +56,31 @@ export const insertTestimonialSchema = createInsertSchema(testimonials).pick({
 
 export type InsertTestimonial = z.infer<typeof insertTestimonialSchema>;
 export type Testimonial = typeof testimonials.$inferSelect;
+
+// Portfolio Items Schema
+export const portfolioItems = pgTable("portfolio_items", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  title: text("title").notNull(),
+  category: text("category").notNull(),
+  lineArtUrl: text("line_art_url").notNull(),
+  fullArtUrl: text("full_art_url").notNull(),
+  description: text("description"),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+});
+
+export const insertPortfolioItemSchema = createInsertSchema(portfolioItems).pick({
+  title: true,
+  category: true,
+  lineArtUrl: true,
+  fullArtUrl: true,
+  description: true,
+}).extend({
+  title: z.string().min(1, "Title is required"),
+  category: z.string().min(1, "Category is required"),
+  lineArtUrl: z.string().url("Please enter a valid URL for line art"),
+  fullArtUrl: z.string().url("Please enter a valid URL for full art"),
+  description: z.string().optional(),
+});
+
+export type InsertPortfolioItem = z.infer<typeof insertPortfolioItemSchema>;
+export type PortfolioItem = typeof portfolioItems.$inferSelect;

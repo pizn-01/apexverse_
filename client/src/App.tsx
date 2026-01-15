@@ -17,6 +17,7 @@ import PortfolioPage from "@/pages/PortfolioPage";
 import PoliciesPage from "@/pages/PoliciesPage";
 import ContactPage from "@/pages/ContactPage";
 import TestimonialsAdminPage from "@/pages/TestimonialsAdminPage";
+import PortfolioAdminPage from "@/pages/PortfolioAdminPage";
 import NotFound from "@/pages/not-found";
 
 function Router() {
@@ -34,6 +35,7 @@ function Router() {
       <Route path="/contact" component={ContactPage} />
       <Route path="/testimonials-admin" component={TestimonialsAdminPage} />
       <Route path="/admin/testimonials" component={TestimonialsAdminPage} />
+      <Route path="/admin/portfolio" component={PortfolioAdminPage} />
       <Route component={NotFound} />
     </Switch>
   );

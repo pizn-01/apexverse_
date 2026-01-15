@@ -3,71 +3,22 @@ import { Card } from "@/components/ui/card";
 import AnimatedHero from "@/components/layout/AnimatedHero";
 import { Badge } from "@/components/ui/badge";
 import { RevealGroup, RevealItem } from "@/components/layout/Reveal";
-import { X } from "lucide-react";
+import { X, Loader2 } from "lucide-react";
 import PortfolioItem from "@/components/layout/PortfolioItem";
-
-// Pair line art with corresponding full art
-const portfolioItems = [
-  {
-    id: 1,
-    lineArt: "/assets/portfolio/IMG_1Line_art.jpg",
-    fullArt: "/assets/portfolio/IMG_1.jpg",
-    category: "Character Art",
-    title: "Character Scene 1"
-  },
-  {
-    id: 2,
-    lineArt: "/assets/portfolio/IMG_2Line_art.jpg",
-    fullArt: "/assets/portfolio/IMG_2.jpg",
-    category: "Character Art",
-    title: "Character Scene 2"
-  },
-  {
-    id: 3,
-    lineArt: "/assets/portfolio/IMG_3Line_art.jpg",
-    fullArt: "/assets/portfolio/IMG_3.jpg",
-    category: "Character Art",
-    title: "Character Scene 3"
-  },
-  {
-    id: 4,
-    lineArt: "/assets/portfolio/IMG_4Line_art.jpg",
-    fullArt: "/assets/portfolio/IMG_4.jpg",
-    category: "Character Art",
-    title: "Character Scene 4"
-  },
-  {
-    id: 5,
-    lineArt: "/assets/portfolio/IMG_5Line_art.jpg",
-    fullArt: "/assets/portfolio/IMG_5.jpg",
-    category: "Character Art",
-    title: "Character Scene 5"
-  },
-  {
-    id: 6,
-    lineArt: "/assets/portfolio/IMG_6Line_art.jpg",
-    fullArt: "/assets/portfolio/IMG_6.jpg",
-    category: "Character Art",
-    title: "Character Scene 6"
-  },
-  {
-    id: 7,
-    lineArt: "/assets/portfolio/IMG_7Line_art.jpg",
-    fullArt: "/assets/portfolio/IMG_7.jpg",
-    category: "Character Art",
-    title: "Character Scene 7"
-  }
-];
-
-const categories = ["All", "Character Art"];
+import { usePortfolioItems } from "@/hooks/usePortfolio";
 
 export default function PortfolioPage() {
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [lightboxImage, setLightboxImage] = useState<string | null>(null);
 
+  const { data: portfolioItems, isLoading } = usePortfolioItems();
+
+  // Get unique categories from portfolio items
+  const categories = ["All", ...Array.from(new Set(portfolioItems?.map(item => item.category) || []))];
+
   const filteredItems = selectedCategory === "All"
-    ? portfolioItems
-    : portfolioItems.filter(item => item.category === selectedCategory);
+    ? portfolioItems || []
+    : portfolioItems?.filter(item => item.category === selectedCategory) || [];
 
   return (
     <div className="min-h-screen">
@@ -98,19 +49,25 @@ export default function PortfolioPage() {
             ))}
           </div>
 
-          <RevealGroup className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filteredItems.map((item) => (
-              <RevealItem key={item.id}>
-                <PortfolioItem
-                  lineArt={item.lineArt}
-                  fullArt={item.fullArt}
-                  title={item.title}
-                  category={item.category}
-                  onImageClick={(src) => setLightboxImage(src)}
-                />
-              </RevealItem>
-            ))}
-          </RevealGroup>
+          {isLoading ? (
+            <div className="flex justify-center py-20">
+              <Loader2 className="w-12 h-12 animate-spin text-primary" />
+            </div>
+          ) : (
+            <RevealGroup className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {filteredItems.map((item) => (
+                <RevealItem key={item.id}>
+                  <PortfolioItem
+                    lineArt={item.lineArtUrl}
+                    fullArt={item.fullArtUrl}
+                    title={item.title}
+                    category={item.category}
+                    onImageClick={(src) => setLightboxImage(src)}
+                  />
+                </RevealItem>
+              ))}
+            </RevealGroup>
+          )}
 
           {filteredItems.length === 0 && (
             <div className="text-center py-20">

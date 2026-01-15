@@ -1,9 +1,10 @@
 import type { Express } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
-import { insertContactSubmissionSchema, insertTestimonialSchema } from "@shared/schema";
+import { insertContactSubmissionSchema, insertTestimonialSchema, insertPortfolioItemSchema } from "@shared/schema";
 import { fromError } from "zod-validation-error";
 import { JSDOM } from "jsdom";
+import { uploadPortfolio, uploadTestimonial } from "./uploads";
 
 import nodemailer from "nodemailer";
 
@@ -97,6 +98,60 @@ export async function registerRoutes(app: Express): Promise<Server> {
       console.error("Error fetching contact submissions:", error);
       return res.status(500).json({
         error: "Failed to fetch submissions"
+      });
+    }
+  });
+
+  // Image upload endpoints
+  app.post("/api/upload/portfolio", uploadPortfolio.fields([
+    { name: 'lineArt', maxCount: 1 },
+    { name: 'fullArt', maxCount: 1 }
+  ]), (req, res) => {
+    try {
+      const files = req.files as { [fieldname: string]: Express.Multer.File[] };
+
+      if (!files || !files.lineArt || !files.fullArt) {
+        return res.status(400).json({
+          error: "Both line art and full art images are required"
+        });
+      }
+
+      const lineArtUrl = `/uploads/portfolio/${files.lineArt[0].filename}`;
+      const fullArtUrl = `/uploads/portfolio/${files.fullArt[0].filename}`;
+
+      console.log("✅ Portfolio images uploaded:", lineArtUrl, fullArtUrl);
+
+      return res.status(200).json({
+        lineArtUrl,
+        fullArtUrl
+      });
+    } catch (error) {
+      console.error("Error uploading portfolio images:", error);
+      return res.status(500).json({
+        error: "Failed to upload images"
+      });
+    }
+  });
+
+  app.post("/api/upload/testimonial", uploadTestimonial.single('image'), (req, res) => {
+    try {
+      if (!req.file) {
+        return res.status(400).json({
+          error: "Image file is required"
+        });
+      }
+
+      const imageUrl = `/uploads/testimonials/${req.file.filename}`;
+
+      console.log("✅ Testimonial image uploaded:", imageUrl);
+
+      return res.status(200).json({
+        imageUrl
+      });
+    } catch (error) {
+      console.error("Error uploading testimonial image:", error);
+      return res.status(500).json({
+        error: "Failed to upload image"
       });
     }
   });
@@ -362,6 +417,66 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+
+  // Portfolio routes
+  app.post("/api/portfolio", async (req, res) => {
+    try {
+      const validationResult = insertPortfolioItemSchema.safeParse(req.body);
+
+      if (!validationResult.success) {
+        const validationError = fromError(validationResult.error);
+        return res.status(400).json({
+          error: validationError.toString()
+        });
+      }
+
+      const portfolioItem = await storage.createPortfolioItem(validationResult.data);
+
+      console.log("✨ New Portfolio Item Added:");
+      console.log(`Title: ${portfolioItem.title}`);
+      console.log(`Category: ${portfolioItem.category}`);
+      console.log("---");
+
+      return res.status(201).json(portfolioItem);
+    } catch (error) {
+      console.error("Error creating portfolio item:", error);
+      return res.status(500).json({
+        error: "Failed to create portfolio item. Please try again."
+      });
+    }
+  });
+
+  app.get("/api/portfolio", async (req, res) => {
+    try {
+      const portfolioItems = await storage.getPortfolioItems();
+      return res.json(portfolioItems);
+    } catch (error) {
+      console.error("Error fetching portfolio items:", error);
+      return res.status(500).json({
+        error: "Failed to fetch portfolio items"
+      });
+    }
+  });
+
+  app.delete("/api/portfolio/:id", async (req, res) => {
+    try {
+      const { id } = req.params;
+      const deleted = await storage.deletePortfolioItem(id);
+
+      if (!deleted) {
+        return res.status(404).json({
+          error: "Portfolio item not found"
+        });
+      }
+
+      return res.status(200).json({ message: "Portfolio item deleted successfully" });
+    } catch (error) {
+      console.error("Error deleting portfolio item:", error);
+      return res.status(500).json({
+        error: "Failed to delete portfolio item"
+      });
+    }
+  });
 
 
   const httpServer = createServer(app);

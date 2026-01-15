@@ -51,6 +51,20 @@ try {
   `);
 
   console.log('✅ Created testimonials table');
+
+  await db.execute(sql`
+    CREATE TABLE IF NOT EXISTS portfolio_items (
+      id VARCHAR PRIMARY KEY DEFAULT gen_random_uuid(),
+      title TEXT NOT NULL,
+      category TEXT NOT NULL,
+      line_art_url TEXT NOT NULL,
+      full_art_url TEXT NOT NULL,
+      description TEXT,
+      created_at TIMESTAMP DEFAULT NOW() NOT NULL
+    );
+  `);
+
+  console.log('✅ Created portfolio_items table');
   console.log('');
   console.log('🎉 Database migration completed successfully!');
   console.log('You can now start your application with: npm run dev');
