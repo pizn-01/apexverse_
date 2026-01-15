@@ -1,8 +1,4 @@
-// Only load dotenv in development (Vercel provides env vars directly)
-if (process.env.NODE_ENV !== 'production') {
-  // Use require for synchronous loading in development
-  require('dotenv').config();
-}
+import 'dotenv/config';
 
 import { type ContactSubmission, type InsertContactSubmission, type Testimonial, type InsertTestimonial, type PortfolioItem, type InsertPortfolioItem, contactSubmissions, testimonials, portfolioItems } from "@shared/schema";
 import { randomUUID } from "crypto";
@@ -37,9 +33,9 @@ export class PostgresStorage implements IStorage {
     // Optimize pool for serverless environment
     const pool = new Pool({
       connectionString,
-      max: 1, // Limit connections in serverless
-      idleTimeoutMillis: 30000,
-      connectionTimeoutMillis: 10000,
+      max: 10, // Increase max connections
+      idleTimeoutMillis: 60000, // 60 seconds
+      connectionTimeoutMillis: 30000, // 30 seconds
     });
     this.db = drizzle(pool);
   }
